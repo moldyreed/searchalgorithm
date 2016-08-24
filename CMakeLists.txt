@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(fastcgi CXX)
+project(searchalgorithm CXX)
 
 if(CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -23,7 +23,9 @@ INCLUDE_DIRECTORIES(
 add_executable(
 	${PROJECT_NAME}
 	
-	src/${PROJECT_NAME}/main.cpp
+	src/main.cpp
+        src/boyermoorehorspoolsearch.cpp
+        src/searchresults.cpp
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION "bin")
