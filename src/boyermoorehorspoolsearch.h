@@ -14,7 +14,9 @@ public:
 private:
     void preproccess(const std::string& needle) noexcept;
     std::map<int, char> _skipTable;
-    std::string _needle;
+    std::set<std::string> _needleMap;
+	std::string _needle;
+	
 };
 
 #endif // BOYERMOOREHORSPOOLSEARCH_H
