@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(searchalgorithm CXX)
 
-
 set(CMAKE_BUILD_TYPE "Debug")
-
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
 
@@ -26,6 +24,7 @@ add_executable(
 	src/main.cpp
         src/boyermoorehorspoolsearch.cpp
         src/searchresults.cpp
+        src/needle.cpp
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION "bin")

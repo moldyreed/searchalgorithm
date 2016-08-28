@@ -1,33 +1,28 @@
 #include <iostream>
 #include <map>
+#include <vector>
 
 #include "boyermoorehorspoolsearch.h"
+#include "needle.h"
 
 int main()
 {
-	const std::string& haystack = "vnk2435kvabco8awkh125kjneytbcd12qjhb4acd123xmnbqwnw4t";
-	const std::string& needle   = "abcd1234";
-	const uint16_t threshold = 3;
-	std::set<std::string> mapped;
+    const char _cHaystack[] = "vnk2435kvabco8awkh125kjney123tbcd12qjhb4acd123xmnbqwnw4t";
+    const char _cNeedle[] = "abcd1234";
+    const std::vector<char>& _needle {_cNeedle, _cNeedle + sizeof _cNeedle / sizeof _cNeedle[0] - 1};
+    const std::vector<char>& _haystack {_cHaystack, _cHaystack + sizeof _cHaystack / sizeof _cHaystack[0] - 1};
+    const uint32_t threshold = 3;
 
-	for (int offset = 0; offset <= needle.length() - threshold; offset++)
-	{
-		for (int i = threshold; i <= needle.length(); i++)
-		{
-			mapped.emplace(needle.substr(offset, i));
-		}
-	}
+    Needle needle{_needle, threshold};
+    BoyerMooreHorspoolSearch algorithm{needle};
+    const SearchResults& results = algorithm.search(_haystack);
 
-	for (const auto& _needle : mapped)
-	{
-		BoyerMooreHorspoolSearch algorithm(_needle);
-		SearchResults results = algorithm.search(haystack);
-
-		for (const auto& result : results.results())
-		{
-			std::cout << std::get<0>(result) << "  " << std::get<1>(result) << "  " << std::get<2>(result) << std::endl;
-		}
-	}
+    for (const auto& result : results.results())
+    {
+        std::cout << " sequence of length = "       << std::get<SearchResults::SequenceLength>(result) <<
+                     " found at haystack offset = " << std::get<SearchResults::HaystackOffset>(result) <<
+                     ", needle offset = "           << std::get<SearchResults::NeedleOffset>(result) << std::endl;
+    }
 
 	return 0;
 }
